@@ -35,6 +35,7 @@
             border-radius: 8px;
             box-sizing: border-box;
             font-size: 16px;
+            text-align: center;
         }
         button {
             background-color: #ff4d4d;
@@ -74,10 +75,10 @@
 <body>
 
 <div class="container" id="loginBox">
-    <h1>شاشة الصلح الحبيبة 🔑</h1>
+    <h1>الصلح خير قوم اتصالح ❤️</h1>
     <p>علشان تدخل تشوف المفاجأة، اكتب البيانات الصح وبلاش دراما 😉:</p>
-    <input type="text" id="username" placeholder="اسم المستخدم">
-    <input type="password" id="password" placeholder="كلمة المرور">
+    <input type="text" id="username" placeholder="اسم المستخدم (حروف سمول)">
+    <input type="text" id="password" placeholder="التاريخ المميز (يوم/شهر/سنة)">
     <button onclick="checkLogin()">دخول ✨</button>
 </div>
 
@@ -85,7 +86,7 @@
     <h1>سؤال الصلح السريع 🧐</h1>
     <p id="questionText">هل صافي يلبن وخلاص مش هتعمل دراما تاني؟</p>
     <div id="optionsContainer">
-        </div>
+    </div>
 </div>
 
 <div class="container hidden" id="contentBox">
@@ -94,7 +95,6 @@
     
     <video controls id="myVid">
         <source src="myvideo.mp4" type="video/mp4">
-        المتصفح لا يدعم تشغيل الفيديو.
     </video>
 
     <img src="pic1.jpg" alt="ذكرياتنا الحلوة 1">
@@ -102,77 +102,26 @@
 </div>
 
 <script>
-    // بيانات الكويز
     var quizData = [
         {
             question: "هل صافي يلبن وخلاص مش هنعمل دراما وزعل تاني؟ 🤔",
             options: ["صافي يلبن وحليب يا قشطة 😍", "لأ لسه زعلان برضه 🙄"],
-            correct: 0 // الاختيار الأول هو الصح
+            correct: 0 
         },
         {
             question: "مين أكتر حد بيحبك في الدنيا دي كلها؟ 💖",
             options: ["هاجر طبعاً من غير كلام 🥰", "محدش خالص 😢"],
-            correct: 0 // الاختيار الأول هو الصح
+            correct: 0 
         }
     ];
 
     var currentQuestionIndex = 0;
 
-    // 1. فحص تسجيل الدخول
     function checkLogin() {
         var user = document.getElementById("username").value.trim();
         var pass = document.getElementById("password").value.trim();
 
-        if(user === "هيما" && pass === "123") {
-            document.getElementById("loginBox").classList.add("hidden");
-            document.getElementById("quizBox").classList.remove("hidden");
-            loadQuestion();
-        } else {
-            alert("البيانات غلط يا بطل! ركز واكتب اسمك والباسورد الصح 😉");
-        }
-    }
-
-    // 2. تحميل سؤال الكويز
-    function loadQuestion() {
-        var currentQuiz = quizData[currentQuestionIndex];
-        document.getElementById("questionText").innerText = currentQuiz.question;
-        
-        var optionsContainer = document.getElementById("optionsContainer");
-        optionsContainer.innerHTML = ""; // تنظيف الاختيارات السابقة
-
-        currentQuiz.options.forEach(function(option, index) {
-            var optionDiv = document.createElement("div");
-            optionDiv.className = "quiz-option";
-            optionDiv.innerText = option;
-            optionDiv.onclick = function() { selectOption(index); };
-            optionsContainer.appendChild(optionDiv);
-        });
-    }
-
-    // 3. فحص إجابة الكويز والانتقال للخطوة التالية
-    function selectOption(selectedIndex) {
-        var currentQuiz = quizData[currentQuestionIndex];
-        
-        if(selectedIndex === currentQuiz.correct) {
-            currentQuestionIndex++;
-            if(currentQuestionIndex < quizData.length) {
-                loadQuestion(); // انقل على السؤال اللي بعده
-            } else {
-                // خلص الأسئلة كلها بنجاح وافتح المفاجأة!
-                document.getElementById("quizBox").classList.add("hidden");
-                document.getElementById("contentBox").classList.remove("hidden");
+        // التثبيت النهائي لليوزر والباسورد
+        if(user === "love" && pass === "21/10/2024") {
+            document.getElementById("loginBox").
                 
-                // تشغيل الفيديو تلقائياً أول ما تفتح الشاشة
-                var video = document.getElementById("myVid");
-                video.play().catch(function(error) {
-                    console.log("التشغيل التلقائي محتاج ضغطة من اليوزر بسبب حماية المتصفح.");
-                });
-            }
-        } else {
-            alert("إجابة خاطئة! فكر كويس وجاوب صح عشان تفتح المفاجأة 😂❤️");
-        }
-    }
-</script>
-
-</body>
-</html>
