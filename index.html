@@ -50,7 +50,8 @@
             margin-top: 10px;
         }
         button:hover { background-color: #ff3333; }
-        .hidden { display: none; }
+        .hidden { display: none !important; }
+        .visible { display: block !important; }
         video, img {
             width: 100%;
             border-radius: 10px;
@@ -84,24 +85,22 @@
 
 <div class="container hidden" id="quizBox">
     <h1>سؤال الصلح السريع 🧐</h1>
-    <p id="questionText">هل صافي يلبن وخلاص مش هتعمل دراما تاني؟</p>
-    <div id="optionsContainer">
-    </div>
+    <p id="questionText">هل صافي يلبن وخلاص مش هتعمل دراما تاني?</p>
+    <div id="optionsContainer"></div>
 </div>
 
 <div class="container hidden" id="contentBox">
     <h1>بنحبك يا هيما! ❤️ 🎉</h1>
     <p>خلاص بقى صافي يلبن بالثلاثة! عيش اللحظة الحلوة دي مع أجمل ذكرياتنا وفيديو الصلح المخصوص عشانك:</p>
-    
     <video controls id="myVid">
         <source src="myvideo.mp4" type="video/mp4">
     </video>
-
     <img src="pic1.jpg" alt="ذكرياتنا الحلوة 1">
     <img src="pic2.webp" alt="ذكرياتنا الحلوة 2">
 </div>
 
 <script>
+    // بيانات الكويز والأسئلة
     var quizData = [
         {
             question: "هل صافي يلبن وخلاص مش هنعمل دراما وزعل تاني؟ 🤔",
@@ -117,15 +116,15 @@
 
     var currentQuestionIndex = 0;
 
+    // هنا مستخبي اليوزر والباسورد الصح المبرمجين عشان ينقلوه للخطوة اللي بعدها
     function checkLogin() {
-        // سحب القيم وتنظيفها تماما من أي مسافات
         var user = document.getElementById("username").value.trim().toLowerCase();
         var pass = document.getElementById("password").value.trim();
 
-        // المقارنة المضمونة لكل المتصفحات
         if (user === "love" && pass === "21/10/2024") {
-            document.getElementById("loginBox").style.display = "none";
-            document.getElementById("quizBox").style.display = "block";
+            document.getElementById("loginBox").classList.add("hidden");
+            document.getElementById("quizBox").classList.remove("hidden");
+            document.getElementById("quizBox").classList.add("visible");
             loadQuestion();
         } else {
             alert("البيانات غلط يا بطل! اكتب اليوزر love والتاريخ 21/10/2024 بالظبط 😉");
@@ -156,12 +155,14 @@
             if(currentQuestionIndex < quizData.length) {
                 loadQuestion(); 
             } else {
-                document.getElementById("quizBox").style.display = "none";
-                document.getElementById("contentBox").style.display = "block";
+                document.getElementById("quizBox").classList.remove("visible");
+                document.getElementById("quizBox").classList.add("hidden");
+                document.getElementById("contentBox").classList.remove("hidden");
+                document.getElementById("contentBox").classList.add("visible");
                 
                 var video = document.getElementById("myVid");
                 video.play().catch(function(error) {
-                    console.log("التشغيل التلقائي محتاج ضغطة من اليوزر.");
+                    console.log("التشغيل تلقائياً محتاج ضغطة من المستخدم أولاً.");
                 });
             }
         } else {
