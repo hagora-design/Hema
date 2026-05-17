@@ -20,7 +20,7 @@
             --white: #ffffff;
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; }
+        * { box-sizing: border-box; transition: all 0.2s ease; }
 
         body {
             margin: 0;
@@ -59,10 +59,11 @@
             width: 100%;
         }
 
-        .active { display: flex !important; animation: slideIn 0.5s ease forwards; }
+        /* الكلاس الموحد والمضمون لظهور الشاشات */
+        .active-screen { display: flex !important; animation: slideIn 0.4s ease forwards; }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -124,5 +125,19 @@
             justify-content: center; align-items: center; border-radius: 30px;
             padding: 20px;
         }
-        .popup-content { background: white; padding: 30px 20px; border-radius: 25px; text-align: center; width: 90%; max-
+        .popup-content { background: white; padding: 30px 20px; border-radius: 25px; text-align: center; width: 90%; max-width: 320px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+
+        .memory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; width: 100%; }
+        .memory-card { background: white; padding: 6px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #f5f5f5; }
+        .memory-card img { width: 100%; border-radius: 10px; height: 140px; object-fit: cover; display: block; }
+        .memory-date { color: var(--accent-color); font-weight: 700; margin-top: 8px; display: block; font-size: 12px; }
+
+        .message-box {
+            background: #fff5f7;
+            padding: 22px;
+            border-radius: 20px;
+            border-right: 6px solid var(--primary-color);
+            margin: 25px 0;
+            text-align: right;
+            box-shadow: 0 4px 12px rgba(88,24,39,
         
