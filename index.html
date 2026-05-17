@@ -13,9 +13,9 @@
 
     <style>
         :root {
-            --primary-color: #880e4f; /* لون مارون برغندي فاخر */
-            --secondary-color: #fce4ec; /* لون بينك هادي وشيك */
-            --accent-color: #d81b60; /* لون بينك حيوي */
+            --primary-color: #880e4f;
+            --secondary-color: #fce4ec;
+            --accent-color: #d81b60;
             --text-dark: #2d3436;
             --white: #ffffff;
         }
@@ -33,7 +33,6 @@
             min-height: 100vh;
         }
 
-        /* حاوية بتصميم شاشة الموبايل الأنيقة */
         .phone-container {
             width: 100%;
             max-width: 430px;
@@ -72,7 +71,6 @@
         h2 { color: var(--primary-color); font-size: 24px; margin-bottom: 20px; }
         p { font-size: 16px; color: #555; line-height: 1.6; margin-top: 0; }
 
-        /* ستايل الأزرار الفاخرة */
         .btn-premium {
             background-color: var(--primary-color);
             color: var(--white);
@@ -88,8 +86,7 @@
         }
         .btn-premium:hover { transform: translateY(-2px); background-color: var(--accent-color); box-shadow: 0 10px 20px rgba(216, 27, 96, 0.3); }
 
-        /* خانات الإدخال لشاشة الصلح خير */
-        .input-group { width: 85%; margin-bottom: 10px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .input-group { width: 85%; margin-bottom: 10px; display: flex; flex-direction: column; align-items: center; }
         input {
             width: 100%;
             padding: 14px;
@@ -103,7 +100,6 @@
         }
         input:focus { border-color: var(--accent-color); background: #fff; box-shadow: 0 0 8px rgba(216, 27, 96, 0.1); }
 
-        /* خيارات الأسئلة */
         .quiz-card { width: 100%; padding: 10px 5px; }
         .quiz-option {
             background: #fff;
@@ -121,7 +117,6 @@
         }
         .quiz-option:hover { border-color: var(--accent-color); background: var(--secondary-color); color: var(--primary-color); }
 
-        /* البوب أب عند الإجابة الغلط */
         .popup-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6); display: none; z-index: 100;
@@ -130,7 +125,6 @@
         }
         .popup-content { background: white; padding: 30px 20px; border-radius: 25px; text-align: center; width: 90%; max-width: 320px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
 
-        /* شاشة المحتوى الكلي والمفاجأة الكبرى */
         .memory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; width: 100%; }
         .memory-card { background: white; padding: 6px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #f5f5f5; }
         .memory-card img { width: 100%; border-radius: 10px; height: 140px; object-fit: cover; display: block; }
@@ -157,11 +151,11 @@
 
     <div class="screen active" id="slide-login">
         <h1 class="main-title" style="margin-top: 0;">الصلح خير<br>قوم اتصالح ❤️</h1>
-        <p style="width: 85%; font-weight: bold; color: #444;">علشان تدخل تشوف المفاجأة، اكتب البيانات الصح وبلاش دراما 😉</p>
+        <p style="width: 85%; font-weight: 600; color: #444; line-height: 1.5;">علشان تدخل تشوف المفاجأة، اكتب البيانات الصح وبلاش دراما 😉</p>
         <div class="input-group">
-            <input type="text" id="username" placeholder="اسم المستخدم" autocomplete="off">
-            <input type="text" id="password" placeholder="كلمة المرور" autocomplete="off">
-            <button class="btn-premium" type="button" id="submit-login-btn" onclick="checkLogin()">دخول ✨</button>
+            <input type="text" id="v_user" placeholder="اسم المستخدم" autocomplete="off">
+            <input type="text" id="v_pass" placeholder="كلمة المرور" autocomplete="off">
+            <button class="btn-premium" type="button" onclick="validateBox()">دخول ✨</button>
         </div>
     </div>
 
@@ -252,15 +246,10 @@
 </div>
 
 <script>
-    // فحص تسجيل الدخول - تم تعديلها لتجاوز أي تعليق في المتصفحات
-    function checkLogin() {
-        var userField = document.getElementById('username');
-        var passField = document.getElementById('password');
-        
-        if (!userField || !passField) return;
-        
-        var u = userField.value.trim().toLowerCase();
-        var p = passField.value.trim();
+    // الدالة الجديدة والمحصنة تماماً ضد تعليق المتصفحات
+    function validateBox() {
+        var u = document.getElementById('v_user').value.trim().toLowerCase();
+        var p = document.getElementById('v_pass').value.trim();
 
         if (u === 'love' && p === '21/10/2024') {
             nextSlide('slide-intro');
@@ -269,49 +258,23 @@
         }
     }
 
-    // دعم الضغط على زرار Enter للإدخال من الكيبورد تسهيلاً على الموبايلات
-    document.getElementById('password').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            checkLogin();
-        }
-    });
-    document.getElementById('username').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            checkLogin();
-        }
-    });
+    // دعم زرار Enter من لوحة المفاتيح
+    document.getElementById('v_pass').addEventListener('keypress', function(e) { if (e.key === 'Enter') { validateBox(); } });
+    document.getElementById('v_user').addEventListener('keypress', function(e) { if (e.key === 'Enter') { validateBox(); } });
 
-    // الانتقال السلس بين الشاشات
     function nextSlide(slideId) {
-        document.querySelectorAll('.screen').forEach(function(s) { 
-            s.classList.remove('active'); 
-            s.style.display = 'none'; 
-        });
+        document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); s.style.display = 'none'; });
         var next = document.getElementById(slideId);
         if (next) {
             next.style.display = 'flex';
             setTimeout(function() { next.classList.add('active'); }, 20);
         }
-
-        // إذا وصل لشاشة الاحتفال، شغل تأثير الفرقعات الملونة تلقائياً
-        if(slideId === 'slide-celebrate') {
-            triggerConfetti();
-        }
+        if(slideId === 'slide-celebrate') { triggerConfetti(); }
     }
 
-    // إظهار البوب أب عند الإجابة الخطأ
-    function wrongAnswer() {
-        document.getElementById('error-popup').style.display = 'flex';
-    }
+    function wrongAnswer() { document.getElementById('error-popup').style.display = 'flex'; }
+    function closePopup() { document.getElementById('error-popup').style.display = 'none'; }
 
-    // إغلاق البوب أب للمحاولة مجدداً
-    function closePopup() {
-        document.getElementById('error-popup').style.display = 'none';
-    }
-
-    // دالة تفجير الفرقعات الملونة (Confetti) الفاخرة
     function triggerConfetti() {
         var end = Date.now() + (4 * 1000);
         var interval = setInterval(function() {
@@ -320,22 +283,15 @@
         }, 200);
     }
 
-    // الانتقال للمحتوى الكلي النهائي وتشغيل الفيديو
-    function showFinal() {
-        document.querySelectorAll('.screen').forEach(function(s) { 
-            s.classList.remove('active'); 
-            s.style.display = 'none'; 
-        });
+     Aurora = function showFinal() {
+        document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); s.style.display = 'none'; });
         var final = document.getElementById('slide-final');
         if (final) {
             final.style.display = 'block';
             setTimeout(function() { final.classList.add('active'); }, 20);
         }
-        
         var vid = document.getElementById('main-video');
-        if (vid) {
-            vid.play().catch(function(e) { console.log("التشغيل التلقائي يحتاج تفاعل"); });
-        }
+        if (vid) { vid.play().catch(function(e) { console.log("Auto-play interaction needed"); }); }
     }
 </script>
 
