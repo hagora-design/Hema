@@ -3,23 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عربون صلح وحب لـ hema ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Playfair+Display:ital,wght=1,600&display=swap" rel="stylesheet">
+    <title>الصلح خير ❤️</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-        body { background: linear-gradient(135deg, #ffe5ec, #fff0f3); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 10px; overflow-x: hidden; position: relative; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+        }
+        h1 { color: #ff4d4d; margin-top: 0; }
+        p { color: #555; line-height: 1.6; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #ff3333; }
+        .hidden { display: none; }
+        video, img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .quiz-option {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .quiz-option:hover {
+            background-color: #ffe6e6;
+            border-color: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="loginBox">
+    <h1>شاشة الصلح الحبيبة 🔑</h1>
+    <p>علشان تدخل تشوف المفاجأة، اكتب البيانات الصح وبلاش دراما 😉:</p>
+    <input type="text" id="username" placeholder="اسم المستخدم">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    <button onclick="checkLogin()">دخول ✨</button>
+</div>
+
+<div class="container hidden" id="quizBox">
+    <h1>سؤال الصلح السريع 🧐</h1>
+    <p id="questionText">هل صافي يلبن وخلاص مش هتعمل دراما تاني؟</p>
+    <div id="optionsContainer">
+        </div>
+</div>
+
+<div class="container hidden" id="contentBox">
+    <h1>بنحبك يا هيما! ❤️ 🎉</h1>
+    <p>خلاص بقى صافي يلبن بالثلاثة! عيش اللحظة الحلوة دي مع أجمل ذكرياتنا وفيديو الصلح المخصوص عشانك:</p>
+    
+    <video controls id="myVid">
+        <source src="myvideo.mp4" type="video/mp4">
+        المتصفح لا يدعم تشغيل الفيديو.
+    </video>
+
+    <img src="pic1.jpg" alt="ذكرياتنا الحلوة 1">
+    <img src="pic2.webp" alt="ذكرياتنا الحلوة 2">
+</div>
+
+<script>
+    // بيانات الكويز
+    var quizData = [
+        {
+            question: "هل صافي يلبن وخلاص مش هنعمل دراما وزعل تاني؟ 🤔",
+            options: ["صافي يلبن وحليب يا قشطة 😍", "لأ لسه زعلان برضه 🙄"],
+            correct: 0 // الاختيار الأول هو الصح
+        },
+        {
+            question: "مين أكتر حد بيحبك في الدنيا دي كلها؟ 💖",
+            options: ["هاجر طبعاً من غير كلام 🥰", "محدش خالص 😢"],
+            correct: 0 // الاختيار الأول هو الصح
+        }
+    ];
+
+    var currentQuestionIndex = 0;
+
+    // 1. فحص تسجيل الدخول
+    function checkLogin() {
+        var user = document.getElementById("username").value.trim();
+        var pass = document.getElementById("password").value.trim();
+
+        if(user === "هيما" && pass === "123") {
+            document.getElementById("loginBox").classList.add("hidden");
+            document.getElementById("quizBox").classList.remove("hidden");
+            loadQuestion();
+        } else {
+            alert("البيانات غلط يا بطل! ركز واكتب اسمك والباسورد الصح 😉");
+        }
+    }
+
+    // 2. تحميل سؤال الكويز
+    function loadQuestion() {
+        var currentQuiz = quizData[currentQuestionIndex];
+        document.getElementById("questionText").innerText = currentQuiz.question;
         
-        .phone-container { width: 100%; max-width: 410px; height: 820px; background: #fff; border-radius: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 8px solid #333; overflow: hidden; position: relative; display: flex; flex-direction: column; z-index: 5; }
-        .screen { display: none; width: 100%; height: 100%; flex-direction: column; background: #fff0f3; overflow-y: auto; padding: 25px; text-align: center; }
-        .screen.active { display: flex; }
+        var optionsContainer = document.getElementById("optionsContainer");
+        optionsContainer.innerHTML = ""; // تنظيف الاختيارات السابقة
 
-        .brand-logo { font-size: 26px; color: #800020; font-weight: bold; margin-bottom: 5px; }
-        .brand-sub { font-size: 14px; color: #555; margin-bottom: 25px; font-weight: bold; }
-        .title { color: #800020; font-size: 26px; font-weight: bold; margin-bottom: 10px; }
-        .sub-title { color: #666; font-size: 14px; margin-bottom: 25px; font-style: italic; }
+        currentQuiz.options.forEach(function(option, index) {
+            var optionDiv = document.createElement("div");
+            optionDiv.className = "quiz-option";
+            optionDiv.innerText = option;
+            optionDiv.onclick = function() { selectOption(index); };
+            optionsContainer.appendChild(optionDiv);
+        });
+    }
 
-        /* شاشة تسجيل الدخول المبدئية */
-        .login-box { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #f9e1e6; margin-top: 20px; }
-        .input-group { margin-bottom: 20px; text-align: right; }
-        .input-group label { display: block; font-weight: bold; color: #4a0e17; margin-bottom: 8px; font-size: 14px; }
-        .input-group input { width: 100%; padding: 12px 15px; border: 2px solid #f0d0d8; border-
+    // 3. فحص إجابة الكويز والانتقال للخطوة التالية
+    function selectOption(selectedIndex) {
+        var currentQuiz = quizData[currentQuestionIndex];
+        
+        if(selectedIndex === currentQuiz.correct) {
+            currentQuestionIndex++;
+            if(currentQuestionIndex < quizData.length) {
+                loadQuestion(); // انقل على السؤال اللي بعده
+            } else {
+                // خلص الأسئلة كلها بنجاح وافتح المفاجأة!
+                document.getElementById("quizBox").classList.add("hidden");
+                document.getElementById("contentBox").classList.remove("hidden");
+                
+                // تشغيل الفيديو تلقائياً أول ما تفتح الشاشة
+                var video = document.getElementById("myVid");
+                video.play().catch(function(error) {
+                    console.log("التشغيل التلقائي محتاج ضغطة من اليوزر بسبب حماية المتصفح.");
+                });
+            }
+        } else {
+            alert("إجابة خاطئة! فكر كويس وجاوب صح عشان تفتح المفاجأة 😂❤️");
+        }
+    }
+</script>
+
+</body>
+</html>
