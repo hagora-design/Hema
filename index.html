@@ -118,10 +118,57 @@
     var currentQuestionIndex = 0;
 
     function checkLogin() {
-        var user = document.getElementById("username").value.trim();
+        // سحب القيم وتنظيفها تماما من أي مسافات
+        var user = document.getElementById("username").value.trim().toLowerCase();
         var pass = document.getElementById("password").value.trim();
 
-        // التثبيت النهائي لليوزر والباسورد
-        if(user === "love" && pass === "21/10/2024") {
-            document.getElementById("loginBox").
+        // المقارنة المضمونة لكل المتصفحات
+        if (user === "love" && pass === "21/10/2024") {
+            document.getElementById("loginBox").style.display = "none";
+            document.getElementById("quizBox").style.display = "block";
+            loadQuestion();
+        } else {
+            alert("البيانات غلط يا بطل! اكتب اليوزر love والتاريخ 21/10/2024 بالظبط 😉");
+        }
+    }
+
+    function loadQuestion() {
+        var currentQuiz = quizData[currentQuestionIndex];
+        document.getElementById("questionText").innerText = currentQuiz.question;
+        
+        var optionsContainer = document.getElementById("optionsContainer");
+        optionsContainer.innerHTML = ""; 
+
+        currentQuiz.options.forEach(function(option, index) {
+            var optionDiv = document.createElement("div");
+            optionDiv.className = "quiz-option";
+            optionDiv.innerText = option;
+            optionDiv.onclick = function() { selectOption(index); };
+            optionsContainer.appendChild(optionDiv);
+        });
+    }
+
+    function selectOption(selectedIndex) {
+        var currentQuiz = quizData[currentQuestionIndex];
+        
+        if(selectedIndex === currentQuiz.correct) {
+            currentQuestionIndex++;
+            if(currentQuestionIndex < quizData.length) {
+                loadQuestion(); 
+            } else {
+                document.getElementById("quizBox").style.display = "none";
+                document.getElementById("contentBox").style.display = "block";
                 
+                var video = document.getElementById("myVid");
+                video.play().catch(function(error) {
+                    console.log("التشغيل التلقائي محتاج ضغطة من اليوزر.");
+                });
+            }
+        } else {
+            alert("إجابة خاطئة! فكر كويس وجاوب صح عشان تفتح المفاجأة 😂❤️");
+        }
+    }
+</script>
+
+</body>
+</html>
